@@ -694,14 +694,13 @@ s0.parentNode.insertBefore(s1,s0);
             <h3 id="contact" class="font-xs">Let me know here.</h3>
             <div class="contact-form">
 <!-- Form section-->
-              <form action="#">
+              <form action="https://formsubmit.co/stewartmilton59@email.com" method="POST">
                 <div class="top-input">
-                  <input type="text" placeholder="Full name">
-                  <input type="text" placeholder="Email address">
+                  <input type="text" name="name" placeholder="Full name">
+                  <input type="text" name="email" placeholder="Email address">
                 </div>
-                <input type="text" placeholder="Subject">
-                <textarea name="message" id="" cols="70" rows="10" placeholder="message"></textarea>
-                <a href="#" class="btn btn--primary">
+                <textarea type="text" name="message" cols="70" rows="10" placeholder="message"></textarea>
+                <button href="#" type="submit" class="btn btn--primary">
                   Send message
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22 2L11 13" stroke="#DFE3EB" stroke-width="1.5" stroke-linecap="round"
@@ -709,7 +708,7 @@ s0.parentNode.insertBefore(s1,s0);
                     <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#DFE3EB" stroke-width="1.5" stroke-linecap="round"
                       stroke-linejoin="round"></path>
                   </svg>
-                </a>
+                </button>
               </form>
 <!-- Form  Section Ends Here-->
             </div>

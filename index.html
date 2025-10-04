@@ -16,6 +16,17 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yourdomain.com/">
 
+
+  <!--- Caching managing  --->
+
+  if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js")
+    .then(() => console.log("Service Worker Registered"))
+    .catch((err) => console.error("Service Worker registration failed:", err));
+}
+
+  
   <!-- Styles -->
   <link rel="stylesheet" href="static/main.css">
   <style>
@@ -843,14 +854,5 @@
 
   <script src="static/main.js"></script>
 </body>
-
-  <!--- Caching managing  --->
-
-  if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/service-worker.js")
-    .then(() => console.log("Service Worker Registered"))
-    .catch((err) => console.error("Service Worker registration failed:", err));
-}
 
 </html>

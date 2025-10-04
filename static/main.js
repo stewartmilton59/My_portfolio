@@ -1,4 +1,4 @@
-  <!--- Caching managing  --->
+  // Caching managing //
 
   if ("serviceWorker" in navigator) {
   navigator.serviceWorker

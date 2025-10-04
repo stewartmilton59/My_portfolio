@@ -15,17 +15,6 @@
   <meta property="og:image" content="https://yourdomain.com/static/images/stewartbanner.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yourdomain.com/">
-
-
-  <!--- Caching managing  --->
-
-  if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/service-worker.js")
-    .then(() => console.log("Service Worker Registered"))
-    .catch((err) => console.error("Service Worker registration failed:", err));
-}
-
   
   <!-- Styles -->
   <link rel="stylesheet" href="static/main.css">

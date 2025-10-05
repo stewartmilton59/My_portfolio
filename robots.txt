@@ -1,19 +1,2 @@
-User-agent: *
-Allow: /
-Disallow: /private/
-Disallow: /admin/
-
-# Optional: Control AI training crawlers
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
 User-agent: Google-Extended
 Disallow: /
-
-Sitemap: https://stewartmilton.online/sitemap.xml

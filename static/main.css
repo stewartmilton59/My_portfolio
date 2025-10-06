@@ -1,30 +1,12 @@
-/* Self-host Inter font */
+/* montserrat-regular - latin */
 @font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('/static/fonts/inter-light.woff2') format('woff2'),
-       url('/static/fonts/inter-light.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Inter';
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: url('/static/fonts/inter-regular.woff2') format('woff2'),
-       url('/static/fonts/inter-regular.woff') format('woff');
+  src: url('../fonts/montserrat-v31-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/static/fonts/inter-semibold.woff2') format('woff2'),
-       url('/static/fonts/inter-semibold.woff') format('woff');
-}
 
 .font-xl,
 .font-lg,

@@ -18,7 +18,7 @@
 
   <!-- Preconnect to external domains -->
 <link rel="preconnect" href="https://1103.3cx.cloud">
-<link rel="dns-prefetch" href="https://1103.3cx.cloud">
+<link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Load non-critical CSS asynchronously -->
 <link rel="preload" href="/static/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -151,14 +151,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="col-lg-6 order-1 order-lg-0">
               <div class="banner-content-right">
                 <!-- Use responsive images -->
-                <picture>
-  <source srcset="static/images/stewartbanner.WebP 388w,
-                 static/images/stewartbanner.WebP 776w"
-          type="image/webp">
-  <img src="static/images/stewartbanner.WebP" 
-       alt="Banner"
-       loading="eager">
-</picture>
+                <img src="static/images/stewartbanner.WebP" alt="Banner" loading="lazy" width="1200" height="600">
                 <img class="dot-shadow-img" src="static/images/dot-shadow-img.WebP" alt="shadow" aria-hidden="true" fetchpriority="high"/>
               </div>
             </div>
@@ -874,6 +867,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
      <!-- Non-critical scripts loaded after page load -->
+    <script src="https://downloads-global.3cx.com/v1/callus.js" defer></script>
+
+    <!-- Load GTM asynchronously -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+    
     <script>
     window.addEventListener('load', function() {
         // Load non-essential scripts

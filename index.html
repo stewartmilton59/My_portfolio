@@ -145,7 +145,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </div>
             <div class="col-lg-6 order-1 order-lg-0">
               <div class="banner-content-right">
-                <img src="static/images/stewartbanner.WebP" alt="Banner: Stewart Milton" fetchpriority="high">
+                <!-- Use responsive images -->
+<img 
+  srcset="images/stewartbanner-388w.WebP 388w,
+          images/stewartbanner-776w.WebP 776w,
+          images/stewartbanner-1164w.WebP 1164w"
+  sizes="(max-width: 768px) 388px, 776px"
+  src="images/stewartbanner-388w.WebP"
+  alt="Banner"
+  loading="eager"
+>
                 <img class="dot-shadow-img" src="static/images/dot-shadow-img.WebP" alt="shadow" aria-hidden="true" fetchpriority="high"/>
               </div>
             </div>

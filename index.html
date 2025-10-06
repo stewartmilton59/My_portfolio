@@ -873,6 +873,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+     <!-- Non-critical scripts loaded after page load -->
+    <script>
+    window.addEventListener('load', function() {
+        // Load non-essential scripts
+        var emailScript = document.createElement('script');
+        emailScript.src = '…cloudflare-static/email-decode.min.js';
+        document.body.appendChild(emailScript);
+        
+        // Load 3cx if needed
+        var chatScript = document.createElement('script');
+        chatScript.src = 'https://1103.3cx.cloud/your-script.js';
+        document.body.appendChild(chatScript);
+    });
+    </script>
+    
 </body>
 
 </html>

@@ -146,7 +146,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="col-lg-6 order-1 order-lg-0">
               <div class="banner-content-right">
                 <!-- Use responsive images -->
-                <img src="static/images/stewartbanner.WebP" alt="Banner">
+                <img 
+  srcset="static/images/stewartbanner-388w.WebP 388w,
+          static/images/stewartbanner-776w.WebP 776w,
+          static/images/stewartbanner-1164w.WebP 1164w"
+  sizes="(max-width: 768px) 388px, 776px"
+  src="static/images/stewartbanner-388w.WebP"
+  alt="Banner"
+  loading="eager"
+>
                 <img class="dot-shadow-img" src="static/images/dot-shadow-img.WebP" alt="shadow" aria-hidden="true" fetchpriority="high"/>
               </div>
             </div>

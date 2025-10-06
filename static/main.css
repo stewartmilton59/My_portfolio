@@ -9813,62 +9813,103 @@ p {
   .call-action-content .call-ac-dot-2 {
     display: none; }
   .call-action-content .call-ac-shape-2 {
-    display: none; } }
+    display: none; } }.testomonial {
+  padding: 100px 0;
+}
 
-.testomonial {
-  padding: 100px 0; }
-  .testomonial-content h3, .testomonial-content .h3 {
-    text-align: center;
-    color: #0A1931;
-    margin-bottom: 70px; }
-  .testomonial-content-left .testomonial-person-area {
-    margin-bottom: 10px; }
-    .testomonial-content-left .testomonial-person-area:nth-last-child(1) {
-      margin-bottom: 0px; }
-  .testomonial-content-right {
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(223, 227, 235, 0.3)), to(rgba(223, 227, 235, 0.3))), #FFFFFF;
-    background: linear-gradient(0deg, rgba(223, 227, 235, 0.3), rgba(223, 227, 235, 0.3)), #FFFFFF;
-    padding: 50px;
-    position: relative;
-    z-index: 1; }
-    .testomonial-content-right .rating-area {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
-      margin-bottom: 26px; }
-      .testomonial-content-right .rating-area span {
-        color: #0A1931;
-        margin-left: 8px; }
-    .testomonial-content-right h4, .testomonial-content-right .h4 {
-      font-size: 32px;
-      font-weight: 400;
-      line-height: 50px;
-      color: #0A1931; }
-  .testomonial-content .testomonial-shape {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    z-index: -2; }
+.testomonial-content h3, 
+.testomonial-content .h3 {
+  text-align: center;
+  color: #0A1931;
+  margin-bottom: 70px;
+}
+
+.testomonial-content-left .testomonial-person-area {
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px;
+  color: #2D3748; /* Fixed: Added proper text color for contrast */
+}
+
+.testomonial-content-left .testomonial-person-area:nth-last-child(1) {
+  margin-bottom: 0px;
+}
+
+/* Fixed: Added styles for testimonial text elements */
+.testomonial-person-area .title-name {
+  color: #1A202C !important; /* Dark color for proper contrast */
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.testomonial-person-area > div:not(.title-name) {
+  color: #4A5568; /* Accessible medium gray for secondary text */
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.testomonial-content-right {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(223, 227, 235, 0.3)), to(rgba(223, 227, 235, 0.3))), #FFFFFF;
+  background: linear-gradient(0deg, rgba(223, 227, 235, 0.3), rgba(223, 227, 235, 0.3)), #FFFFFF;
+  padding: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.testomonial-content-right .rating-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 26px;
+}
+
+.testomonial-content-right .rating-area span {
+  color: #0A1931;
+  margin-left: 8px;
+}
+
+.testomonial-content-right h4, 
+.testomonial-content-right .h4 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 50px;
+  color: #0A1931;
+}
+
+.testomonial-content .testomonial-shape {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: -2;
+}
 
 @media (min-width: 1024px) and (max-width: 1200px) {
   .testomonial-content .testomonial-shape {
     position: absolute;
     top: 24px;
-    right: 24px; } }
+    right: 24px;
+  }
+}
 
 @media (min-width: 992px) and (max-width: 1023px) {
   .testomonial-content .testomonial-shape {
     position: absolute;
     top: 24px;
-    right: 24px; }
-  .testomonial-content-right h4, .testomonial-content-right .h4 {
+    right: 24px;
+  }
+  
+  .testomonial-content-right h4, 
+  .testomonial-content-right .h4 {
     font-size: 24px;
-    line-height: 40px; } }
+    line-height: 40px;
+  }
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
   .testomonial-content-left {
@@ -9878,38 +9919,70 @@ p {
     display: flex;
     -webkit-flex-wrap: wrap;
         -ms-flex-wrap: wrap;
-            flex-wrap: wrap; }
-    .testomonial-content-left .testomonial-person-area {
-      width: 50%; }
-      .testomonial-content-left .testomonial-person-area:nth-last-child(2) {
-        margin-bottom: 0px; }
+            flex-wrap: wrap;
+  }
+  
+  .testomonial-content-left .testomonial-person-area {
+    width: 50%;
+    color: #2D3748; /* Fixed: Ensure text color in responsive */
+  }
+  
+  .testomonial-content-left .testomonial-person-area:nth-last-child(2) {
+    margin-bottom: 0px;
+  }
+  
   .testomonial-content-right {
-    margin-top: 20px; }
-    .testomonial-content-right h4, .testomonial-content-right .h4 {
-      font-size: 24px;
-      line-height: 40px; } }
+    margin-top: 20px;
+  }
+  
+  .testomonial-content-right h4, 
+  .testomonial-content-right .h4 {
+    font-size: 24px;
+    line-height: 40px;
+  }
+}
 
 @media (min-width: 575px) and (max-width: 767px) {
   .testomonial-content-right {
-    margin-top: 20px; }
-    .testomonial-content-right h4, .testomonial-content-right .h4 {
-      font-size: 24px;
-      line-height: 40px; } }
+    margin-top: 20px;
+  }
+  
+  .testomonial-content-right h4, 
+  .testomonial-content-right .h4 {
+    font-size: 24px;
+    line-height: 40px;
+  }
+}
 
 @media (max-width: 574px) {
   .testomonial {
-    padding: 50px 0; }
-    .testomonial-content h3, .testomonial-content .h3 {
-      font-size: 32px;
-      line-height: 42px;
-      margin-bottom: 50px; }
-    .testomonial-content-right {
-      margin-top: 20px;
-      padding: 30px; }
-      .testomonial-content-right h4, .testomonial-content-right .h4 {
-        font-size: 14px;
-        line-height: 22px; } }
-
+    padding: 50px 0;
+  }
+  
+  .testomonial-content h3, 
+  .testomonial-content .h3 {
+    font-size: 32px;
+    line-height: 42px;
+    margin-bottom: 50px;
+  }
+  
+  .testomonial-content-right {
+    margin-top: 20px;
+    padding: 30px;
+  }
+  
+  .testomonial-content-right h4, 
+  .testomonial-content-right .h4 {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  
+  /* Fixed: Ensure text color in mobile view */
+  .testomonial-content-left .testomonial-person-area {
+    color: #2D3748;
+    padding: 15px;
+  }
+}
 .blog {
   padding: 100px 0;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(223, 227, 235, 0.5)), to(#FFFFFF)), #FFFFFF;

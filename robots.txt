@@ -3,5 +3,3 @@ disallow: /downloads/
 
 user-agent: magicsearchbot
 disallow: /uploads/
-
-sitemap: https://stewartmilton.online/

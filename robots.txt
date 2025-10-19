@@ -1,2 +1,4 @@
 user-agent: Googlebot
 disallow:
+
+Sitemap: https://stewartmilton.online/robots.txt

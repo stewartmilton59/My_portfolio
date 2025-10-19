@@ -1,6 +1,5 @@
 user-agent: Googlebot
 Content-signal: search=yes,ai-train=no
 disallow:
-Allow: /
 
 Sitemap: https://stewartmilton.online/robots.txt

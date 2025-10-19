@@ -76,6 +76,53 @@
   
 </head>
 <body>
+<!--- cloudflare startup --->
+   <div class="container">
+        <h1>Welcome to Our Website</h1>
+        <p>Please complete the verification to access our content.</p>
+        
+        <div class="turnstile-container">
+            <!-- Cloudflare Turnstile Widget -->
+            <div class="cf-turnstile" 
+                 data-sitekey="0x4AAAAAAB7bgSYc0b7Jj3UU" 
+                 data-theme="light" 
+                 data-size="normal" 
+                 data-callback="onSuccess">
+            </div>
+        </div>
+        
+        <div class="loading">
+            <div class="loading-dots">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p>Verifying...</p>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <strong>Success!</strong> You have been verified. The website is now accessible.
+        </div>
+        
+        <div class="website-content" id="websiteContent">
+            <h2>Welcome to Our Premium Content</h2>
+            <p>Congratulations! You've successfully passed the verification and now have access to our exclusive content.</p>
+            <p>Here you'll find:</p>
+            <ul style="text-align: left; margin: 20px 0; color: #555;">
+                <li>Premium articles and resources</li>
+                <li>Exclusive member benefits</li>
+                <li>Special offers and discounts</li>
+                <li>Community access</li>
+            </ul>
+            <button class="btn" onclick="exploreMore()">Explore More</button>
+        </div>
+        
+        <footer>
+            <p>Protected by Cloudflare Turnstile</p>
+        </footer>
+    </div>
+  
   <!-- live chart -->
 <call-us-selector phonesystem-url="https://1103.3cx.cloud" party="LiveChat710524"></call-us-selector>
 <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
@@ -918,15 +965,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
 <!-- cloudflare wedget key --->
 <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7bgSYc0b7Jj3UU"></div>
-<!---
-<div
-  class="cf-turnstile"
-  data-sitekey="0x4AAAAAAB7bgSYc0b7Jj3UU"
-  data-theme="light"
-  data-size="normal"
-  data-callback="onSuccess"
-></div>
-    --->
+<script>
+        // Callback function when Turnstile verification is successful
+        function onSuccess(token) {
+            // Show loading animation
+            document.querySelector('.loading').style.display = 'block';
+            
+            // Simulate verification process
+            setTimeout(function() {
+                // Hide loading animation
+                document.querySelector('.loading').style.display = 'none';
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // After a short delay, show the website content
+                setTimeout(function() {
+                    document.getElementById('websiteContent').style.display = 'block';
+                    
+                    // Optional: Scroll to content
+                    document.getElementById('websiteContent').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }, 1000);
+            }, 1500);
+        }
+        
+        function exploreMore() {
+            alert('Welcome! You can now explore all our premium content.');
+        }
+        
+        // Optional: Add a timeout to show a message if verification takes too long
+        setTimeout(function() {
+            if (document.getElementById('successMessage').style.display === 'none' && 
+                document.querySelector('.loading').style.display === 'none') {
+                // Could show a message here if needed
+            }
+        }, 10000);
+ </script>
+    
 </body>
 
 </html>

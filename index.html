@@ -43,7 +43,163 @@
   
   <!-- Styles -->
   <link rel="stylesheet" href="static/main.css">
+  
   <style>
+/* cloudflare css*/
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .turnstile-container {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .website-content {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .website-content h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .website-content p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #0d5bb9;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 20px;
+        }
+        
+        .loading-dots div {
+            position: absolute;
+            top: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #1a73e8;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        
+        .loading-dots div:nth-child(1) {
+            left: 8px;
+            animation: loading-dots1 0.6s infinite;
+        }
+        
+        .loading-dots div:nth-child(2) {
+            left: 8px;
+            animation: loading-dots2 0.6s infinite;
+        }
+        
+        .loading-dots div:nth-child(3) {
+            left: 32px;
+            animation: loading-dots2 0.6s infinite;
+        }
+        
+        .loading-dots div:nth-child(4) {
+            left: 56px;
+            animation: loading-dots3 0.6s infinite;
+        }
+        
+        @keyframes loading-dots1 {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes loading-dots3 {
+            0% { transform: scale(1); }
+            100% { transform: scale(0); }
+        }
+        
+        @keyframes loading-dots2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(24px, 0); }
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+/* cloudflare css end*/
     /* Additional custom styles */
     .service-content-area p.font-xs {
       min-height: 60px;
@@ -966,6 +1122,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
 <!-- cloudflare wedget key --->
 <!-- <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7bgSYc0b7Jj3UU"></div> -->
+     <script>
+        // Callback function when Turnstile verification is successful
+        function onSuccess(token) {
+            // Show loading animation
+            document.querySelector('.loading').style.display = 'block';
+            
+            // Simulate verification process
+            setTimeout(function() {
+                // Hide loading animation
+                document.querySelector('.loading').style.display = 'none';
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // After a short delay, show the website content
+                setTimeout(function() {
+                    document.getElementById('websiteContent').style.display = 'block';
+                    
+                    // Optional: Scroll to content
+                    document.getElementById('websiteContent').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }, 1000);
+            }, 1500);
+        }
+        
+        function exploreMore() {
+            alert('Welcome! You can now explore all our premium content.');
+        }
+        
+        // Optional: Add a timeout to show a message if verification takes too long
+        setTimeout(function() {
+            if (document.getElementById('successMessage').style.display === 'none' && 
+                document.querySelector('.loading').style.display === 'none') {
+                // Could show a message here if needed
+            }
+        }, 10000);
+    </script>
    
 </body>
 

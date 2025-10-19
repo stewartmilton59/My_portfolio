@@ -964,46 +964,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
     
 <!-- cloudflare wedget key --->
-<div class="cf-turnstile" data-sitekey="0x4AAAAAAB7bgSYc0b7Jj3UU"></div>
-<script>
-        // Callback function when Turnstile verification is successful
-        function onSuccess(token) {
-            // Show loading animation
-            document.querySelector('.loading').style.display = 'block';
-            
-            // Simulate verification process
-            setTimeout(function() {
-                // Hide loading animation
-                document.querySelector('.loading').style.display = 'none';
-                
-                // Show success message
-                document.getElementById('successMessage').style.display = 'block';
-                
-                // After a short delay, show the website content
-                setTimeout(function() {
-                    document.getElementById('websiteContent').style.display = 'block';
-                    
-                    // Optional: Scroll to content
-                    document.getElementById('websiteContent').scrollIntoView({ 
-                        behavior: 'smooth' 
-                    });
-                }, 1000);
-            }, 1500);
-        }
-        
-        function exploreMore() {
-            alert('Welcome! You can now explore all our premium content.');
-        }
-        
-        // Optional: Add a timeout to show a message if verification takes too long
-        setTimeout(function() {
-            if (document.getElementById('successMessage').style.display === 'none' && 
-                document.querySelector('.loading').style.display === 'none') {
-                // Could show a message here if needed
-            }
-        }, 10000);
- </script>
-    
+<!-- <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7bgSYc0b7Jj3UU"></div> -->
+   
 </body>
 
 </html>

@@ -129,3 +129,8 @@ eval("__webpack_require__(/*! ./src/js/main.js */\"./src/js/main.js\");\nmodule.
 /***/ })
 
 /******/ });
+
+/****   caches maneg ****/
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
+}

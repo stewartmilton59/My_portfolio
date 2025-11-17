@@ -1,11 +1,9 @@
 // public/service-worker.js
-const CACHE_NAME = 'portfolio-cache-v1';
+const CACHE_NAME = 'static/service-worker.js';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/main.js',
-  '/profile.jpg',
+  'https://stewartmilton.online/',
+  'https://stewartmilton.online/static/main.js',
+  'https://stewartmilton.online/static/main.css',
 ];
 
 self.addEventListener('install', (event) => {

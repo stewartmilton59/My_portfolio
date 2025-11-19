@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTools Hub | Essential Tools for Modern Web Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-btn, .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover, .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .category-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .category-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tool-tag {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Featured Tools */
+        .featured-tools {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .tool-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .tool-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .tool-content {
+            padding: 20px;
+        }
+
+        .tool-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tag.frontend {
+            background-color: rgba(124, 58, 237, 0.1);
+            color: var(--secondary);
+        }
+
+        .tag.backend {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: var(--accent);
+        }
+
+        .tag.devops {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .difficulty {
+            display: flex;
+            gap: 5px;
+        }
+
+        .difficulty-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+        }
+
+        .difficulty-dot.active {
+            background-color: var(--success);
+        }
+
+        .difficulty-dot.active.medium {
+            background-color: var(--warning);
+        }
+
+        .difficulty-dot.active.hard {
+            background-color: var(--danger);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-text {
+            color: var(--gray);
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: """;
+            font-size: 4rem;
+            color: var(--light-gray);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            z-index: 0;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: var(--radius) 0 0 var(--radius);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            background-color: var(--dark);
+            color: var(--white);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: #0f172a;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #334155;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--white);
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                padding: 20px 0;
+                gap: 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: var(--radius);
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: var(--radius);
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-toolbox"></i>
+                    DevTools<span>Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#roadmaps">Roadmaps</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Essential Tools for Modern Web Development</h1>
+            <p>Your comprehensive guide to the tools, frameworks, and technologies that power today's web applications.</p>
+            <div class="cta-buttons">
+                <a href="#tools" class="btn btn-primary">Explore Tools</a>
+                <a href="#roadmaps" class="btn btn-secondary">View Learning Paths</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Tools Cataloged</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Developers Helped</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tool Categories</h2>
+                <p>Browse tools by category to find exactly what you need for your development workflow</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <h3>Frontend Development</h3>
+                    <p>Frameworks, libraries, and tools for building user interfaces</p>
+                    <div class="category-tools">
+                        <span class="tool-tag">React</span>
+                        <span class="tool-tag">Vue</span>
+                        <span class="tool-tag">Angular</span>
+                        <span class="tool-tag">Svelte</span>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Backend Development</h3>
+                    <p>Server-side technologies, frameworks, and runtime environments</p>
+                    <div class="category-tools">
+                        <span class="tool-tag">Node.js</span>
+                        <span class="tool-tag">Django</span>
+                        <span class="tool-tag">Express</span>
+                        <span class="tool-tag">FastAPI</span>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>DevOps & Deployment</h3>
+                    <p>Tools for deployment, containerization, and infrastructure</p>
+                    <div class="category-tools">
+                        <span class="tool-tag">Docker</span>
+                        <span class="tool-tag">Kubernetes</span>
+                        <span class="tool-tag">AWS</span>
+                        <span class="tool-tag">GitHub Actions</span>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Database Tools</h3>
+                    <p>Database systems, ORMs, and management tools</p>
+                    <div class="category-tools">
+                        <span class="tool-tag">MySQL</span>
+                        <span class="tool-tag">MongoDB</span>
+                        <span class="tool-tag">PostgreSQL</span>
+                        <span class="tool-tag">Redis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tools -->
+    <section class="featured-tools" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Tools</h2>
+                <p>Hand-picked essential tools every web developer should know</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>React</h3>
+                            <p>JavaScript Library</p>
+                        </div>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">A JavaScript library for building user interfaces, particularly web applications.</p>
+                        <div class="tool-tags">
+                            <span class="tag frontend">Frontend</span>
+                            <span class="tag">UI</span>
+                            <span class="tag">Components</span>
+                        </div>
+                        <div class="tool-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-dot active"></span>
+                                <span class="difficulty-dot active medium"></span>
+                                <span class="difficulty-dot"></span>
+                            </div>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fab fa-node-js"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Node.js</h3>
+                            <p>JavaScript Runtime</p>
+                        </div>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">A JavaScript runtime built on Chrome's V8 JavaScript engine for building server-side applications.</p>
+                        <div class="tool-tags">
+                            <span class="tag backend">Backend</span>
+                            <span class="tag">Runtime</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <div class="tool-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-dot active"></span>
+                                <span class="difficulty-dot"></span>
+                                <span class="difficulty-dot"></span>
+                            </div>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Docker</h3>
+                            <p>Container Platform</p>
+                        </div>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">A platform for developing, shipping, and running applications in containers.</p>
+                        <div class="tool-tags">
+                            <span class="tag devops">DevOps</span>
+                            <span class="tag">Containers</span>
+                            <span class="tag">Deployment</span>
+                        </div>
+                        <div class="tool-footer">
+                            <div class="difficulty">
+                                <span class="difficulty-dot active"></span>
+                                <span class="difficulty-dot active medium"></span>
+                                <span class="difficulty-dot active hard"></span>
+                            </div>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Developers Say</h2>
+                <p>Hear from developers who have used our resources to improve their skills</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">DevTools Hub helped me transition from backend to full-stack development. The learning paths are perfectly structured.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <h4>Jamie Smith</h4>
+                            <p>Full-Stack Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">As a beginner, the tool explanations and setup guides were invaluable. I reference this site almost daily.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AR</div>
+                        <div class="author-info">
+                            <h4>Alex Rivera</h4>
+                            <p>Frontend Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The comparison between similar tools saved our team weeks of research. This is now our go-to resource.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TP</div>
+                        <div class="author-info">
+                            <h4>Taylor Park</h4>
+                            <p>Tech Lead</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Get the latest tool updates, tutorials, and industry insights delivered to your inbox</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DevTools Hub</h3>
+                    <p>Your comprehensive guide to modern web development tools and technologies.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">All Tools</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Learning Paths</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Frontend</a></li>
+                        <li><a href="#">Backend</a></li>
+                        <li><a href="#">DevOps</a></li>
+                        <li><a href="#">Databases</a></li>
+                        <li><a href="#">Testing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contribute</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DevTools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Simple theme toggle (for demonstration)
+        document.querySelector('.theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Add dark theme styles dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            body.dark-theme {
+                --light: #0f172a;
+                --dark: #f1f5f9;
+                --white: #1e293b;
+                --gray: #94a3b8;
+                --light-gray: #334155;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

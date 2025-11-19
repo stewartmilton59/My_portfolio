@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/more"
+  to = "/more.html"
+  status = 200

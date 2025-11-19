@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedInteract | Drug Interaction Database Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #dc2626;
+            --warning: #d97706;
+            --mild: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-btn, .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover, .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn-large {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn-large:hover {
+            background: var(--primary-dark);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #047857;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Interaction Checker */
+        .interaction-checker {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .checker-container {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .checker-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .checker-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .drug-selection {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .drug-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .drug-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .drug-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .drug-select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .add-drug-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: 2px dashed var(--light-gray);
+            color: var(--gray);
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 28px;
+        }
+
+        .add-drug-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .check-btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Drug Categories */
+        .drug-categories {
+            padding: 80px 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .category-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Severity Indicators */
+        .severity-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .severity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .severity-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+
+        .severity-severe {
+            background-color: var(--accent);
+        }
+
+        .severity-moderate {
+            background-color: var(--warning);
+        }
+
+        .severity-mild {
+            background-color: var(--mild);
+        }
+
+        /* Resources */
+        .resources {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: var(--radius) 0 0 var(--radius);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            background-color: var(--dark);
+            color: var(--white);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: #0f172a;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #334155;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+
+            .drug-selection {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--white);
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                padding: 20px 0;
+                gap: 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: var(--radius);
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: var(--radius);
+                padding: 12px;
+            }
+
+            .checker-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-pills"></i>
+                    Med<span>Interact</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#interaction-checker">Interaction Checker</a></li>
+                    <li><a href="#drug-categories">Drug Categories</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Check, Understand, and Prevent Drug Interactions</h1>
+            <p>Evidence-based drug interaction database for healthcare professionals and patients</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for a drug...">
+                <button class="search-btn-large">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="#interaction-checker" class="btn btn-primary">Check Interactions</a>
+                <a href="#drug-categories" class="btn btn-secondary">Browse Drugs</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Drugs in Database</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Known Interactions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Comprehensive Drug Interaction Platform</h2>
+                <p>Designed for healthcare professionals, pharmacists, and patients</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Fast Interaction Checker</h3>
+                    <p>Quickly check interactions between multiple drugs with our advanced algorithm.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-medical-alt"></i>
+                    </div>
+                    <h3>Evidence-Based Data</h3>
+                    <p>All interactions are backed by clinical literature and pharmaceutical databases.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Clinical Classification</h3>
+                    <p>Interactions categorized by severity with clear clinical recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interaction Checker -->
+    <section class="interaction-checker" id="interaction-checker">
+        <div class="container">
+            <div class="section-title">
+                <h2>Drug Interaction Checker</h2>
+                <p>Check potential interactions between medications</p>
+            </div>
+            <div class="checker-container">
+                <div class="checker-title">
+                    <h3>Multi-Drug Interaction Check</h3>
+                    <p>Select medications to check for potential interactions</p>
+                </div>
+                
+                <div class="drug-selection">
+                    <div class="drug-input">
+                        <label for="drug1">Drug 1</label>
+                        <select class="drug-select" id="drug1">
+                            <option value="">Select a drug...</option>
+                            <option value="warfarin">Warfarin</option>
+                            <option value="simvastatin">Simvastatin</option>
+                            <option value="lisinopril">Lisinopril</option>
+                            <option value="metformin">Metformin</option>
+                            <option value="aspirin">Aspirin</option>
+                        </select>
+                    </div>
+                    
+                    <div class="drug-input">
+                        <label for="drug2">Drug 2</label>
+                        <select class="drug-select" id="drug2">
+                            <option value="">Select a drug...</option>
+                            <option value="ibuprofen">Ibuprofen</option>
+                            <option value="omeprazole">Omeprazole</option>
+                            <option value="atorvastatin">Atorvastatin</option>
+                            <option value="levothyroxine">Levothyroxine</option>
+                            <option value="amoxicillin">Amoxicillin</option>
+                        </select>
+                    </div>
+                    
+                    <button class="add-drug-btn">
+                        <i class="fas fa-plus"></i> Add Another Drug
+                    </button>
+                </div>
+                
+                <div class="check-btn-container">
+                    <button class="btn btn-primary btn-large">Check Interactions</button>
+                </div>
+                
+                <div class="severity-indicators">
+                    <div class="severity-item">
+                        <div class="severity-dot severity-severe"></div>
+                        <span>Severe Interaction</span>
+                    </div>
+                    <div class="severity-item">
+                        <div class="severity-dot severity-moderate"></div>
+                        <span>Moderate Interaction</span>
+                    </div>
+                    <div class="severity-item">
+                        <div class="severity-dot severity-mild"></div>
+                        <span>Mild Interaction</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drug Categories -->
+    <section class="drug-categories" id="drug-categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Browse by Drug Category</h2>
+                <p>Explore medications by therapeutic class</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Cardiovascular</h3>
+                    <p>Drugs for heart conditions, blood pressure, and cholesterol</p>
+                    <a href="#" class="btn btn-secondary">Browse Drugs</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Central Nervous System</h3>
+                    <p>Antidepressants, antipsychotics, and neurological medications</p>
+                    <a href="#" class="btn btn-secondary">Browse Drugs</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bacteria"></i>
+                    </div>
+                    <h3>Antibiotics</h3>
+                    <p>Antimicrobial agents for bacterial infections</p>
+                    <a href="#" class="btn btn-secondary">Browse Drugs</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-pain-relief"></i>
+                    </div>
+                    <h3>Analgesics</h3>
+                    <p>Pain relievers including opioids and NSAIDs</p>
+                    <a href="#" class="btn btn-secondary">Browse Drugs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Educational Resources</h2>
+                <p>Downloadable guides and clinical resources</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Drug Interaction Guide</h3>
+                    <p>Comprehensive guide to common drug interactions</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3>Printable Charts</h3>
+                    <p>Drug interaction reference charts for clinical use</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-book-medical"></i>
+                    </div>
+                    <h3>Clinical Guidelines</h3>
+                    <p>Evidence-based guidelines for medication management</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Patient Education</h3>
+                    <p>Resources to help patients understand medication safety</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated on Drug Safety</h2>
+            <p>Get the latest drug interaction alerts and clinical updates</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MedInteract</h3>
+                    <p>Evidence-based drug interaction database for healthcare professionals and patients.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#interaction-checker">Interaction Checker</a></li>
+                        <li><a href="#drug-categories">Drug Categories</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Drug Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Cardiovascular</a></li>
+                        <li><a href="#">Central Nervous System</a></li>
+                        <li><a href="#">Antibiotics</a></li>
+                        <li><a href="#">Analgesics</a></li>
+                        <li><a href="#">Antidiabetics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Medical Disclaimer</a></li>
+                        <li><a href="#">Data Sources</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MedInteract. All rights reserved. This information is for educational purposes and is not a substitute for professional medical advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Simple theme toggle (for demonstration)
+        document.querySelector('.theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Add dark theme styles dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            body.dark-theme {
+                --light: #0f172a;
+                --dark: #f1f5f9;
+                --white: #1e293b;
+                --gray: #94a3b8;
+                --light-gray: #334155;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Interaction checker functionality
+        document.querySelector('.check-btn-container .btn').addEventListener('click', function() {
+            const drug1 = document.getElementById('drug1').value;
+            const drug2 = document.getElementById('drug2').value;
+            
+            if (!drug1 || !drug2) {
+                alert('Please select at least two drugs to check interactions.');
+                return;
+            }
+            
+            // In a real application, this would make an API call
+            // For demo purposes, we'll show a mock result
+            alert(`Checking interactions between ${drug1} and ${drug2}...\n\nThis would display detailed interaction information in a real application.`);
+        });
+
+        // Search functionality
+        document.querySelector('.search-btn-large').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}\n\nThis would show search results in a real application.`);
+            }
+        });
+    </script>
+</body>
+</html>

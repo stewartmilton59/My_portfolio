@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediChart | Patient Records Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #dc2626;
+            --warning: #d97706;
+            --info: #0ea5e9;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark);
+            color: var(--white);
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-title {
+            padding: 0 20px 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .menu-items {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .menu-link:hover, .menu-link.active {
+            background-color: #1e293b;
+            color: var(--white);
+            border-left-color: var(--primary);
+        }
+
+        .menu-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header */
+        .header {
+            height: var(--header-height);
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            width: 300px;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.primary {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .stat-icon.success {
+            background-color: rgba(5, 150, 105, 0.1);
+            color: var(--secondary);
+        }
+
+        .stat-icon.warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        .stat-icon.danger {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--accent);
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-change.positive {
+            color: var(--secondary);
+        }
+
+        .stat-change.negative {
+            color: var(--accent);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-actions {
+            margin-left: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #047857;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background-color: #f8fafc;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .data-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background-color: rgba(5, 150, 105, 0.1);
+            color: var(--secondary);
+        }
+
+        .status-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        .status-danger {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--accent);
+        }
+
+        .status-info {
+            background-color: rgba(14, 165, 233, 0.1);
+            color: var(--info);
+        }
+
+        /* Alert List */
+        .alert-list {
+            list-style: none;
+        }
+
+        .alert-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .alert-icon.warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        .alert-icon.danger {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--accent);
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .alert-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .alert-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Patient Profile */
+        .patient-profile {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .patient-sidebar {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .patient-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .patient-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--gray);
+        }
+
+        .patient-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .patient-id {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .patient-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .patient-details {
+            margin-bottom: 25px;
+        }
+
+        .detail-group {
+            margin-bottom: 15px;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .patient-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .patient-content {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 25px;
+        }
+
+        .tab-link {
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .tab-link:hover, .tab-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Vitals Chart */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .vital-card {
+            background-color: #f8fafc;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .vital-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .vital-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .vital-trend {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .vital-trend.positive {
+            color: var(--secondary);
+        }
+
+        .vital-trend.negative {
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .patient-profile {
+                grid-template-columns: 1fr;
+            }
+            
+            .patient-sidebar {
+                order: 2;
+            }
+            
+            .patient-content {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .search-input {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 15px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .vitals-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-input {
+                display: none;
+            }
+            
+            .vitals-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-nav {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="logo">
+                <i class="fas fa-heartbeat"></i>
+                Medi<span>Chart</span>
+            </a>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-section">
+                <h3 class="menu-title">Main</h3>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <a href="#" class="menu-link active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-user-injured"></i>
+                            Patient Directory
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-calendar-check"></i>
+                            Appointments
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-procedures"></i>
+                            Admissions
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="menu-section">
+                <h3 class="menu-title">Clinical</h3>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-stethoscope"></i>
+                            Medical History
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-pills"></i>
+                            Medications
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-heartbeat"></i>
+                            Vital Signs
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-vial"></i>
+                            Lab Results
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-x-ray"></i>
+                            Imaging
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="menu-section">
+                <h3 class="menu-title">Administration</h3>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-chart-bar"></i>
+                            Reports & Analytics
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-users"></i>
+                            User Management
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h1 class="page-title">Patient Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search patients...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="user-menu">
+                    <div class="user-avatar">JD</div>
+                    <div>
+                        <div class="user-name">Dr. John Doe</div>
+                        <div class="user-role">Cardiologist</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="container">
+                <!-- Dashboard Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Patients</div>
+                                <div class="stat-value">1,842</div>
+                            </div>
+                            <div class="stat-icon primary">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 12 new today
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Currently Admitted</div>
+                                <div class="stat-value">127</div>
+                            </div>
+                            <div class="stat-icon warning">
+                                <i class="fas fa-procedures"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 5 new admissions
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Critical Patients</div>
+                                <div class="stat-value">18</div>
+                            </div>
+                            <div class="stat-icon danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-up"></i> 2 since yesterday
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Pending Lab Results</div>
+                                <div class="stat-value">34</div>
+                            </div>
+                            <div class="stat-icon success">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-down"></i> 8 results received
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Left Column -->
+                    <div class="dashboard-column">
+                        <!-- Patient Directory -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Recent Patient Admissions</h2>
+                                <div class="card-actions">
+                                    <a href="#" class="btn btn-secondary btn-sm">View All</a>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient ID</th>
+                                            <th>Name</th>
+                                            <th>Age/Sex</th>
+                                            <th>Condition</th>
+                                            <th>Admission Date</th>
+                                            <th>Doctor</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#PT-7834</td>
+                                            <td>Sarah Johnson</td>
+                                            <td>42/F</td>
+                                            <td><span class="status-badge status-danger">Critical</span></td>
+                                            <td>10 Nov 2023</td>
+                                            <td>Dr. Miller</td>
+                                            <td>
+                                                <a href="#" class="btn btn-secondary btn-sm">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#PT-7833</td>
+                                            <td>Michael Chen</td>
+                                            <td>58/M</td>
+                                            <td><span class="status-badge status-warning">Serious</span></td>
+                                            <td>10 Nov 2023</td>
+                                            <td>Dr. Rodriguez</td>
+                                            <td>
+                                                <a href="#" class="btn btn-secondary btn-sm">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#PT-7832</td>
+                                            <td>Emily Wilson</td>
+                                            <td>35/F</td>
+                                            <td><span class="status-badge status-success">Stable</span></td>
+                                            <td>9 Nov 2023</td>
+                                            <td>Dr. Patel</td>
+                                            <td>
+                                                <a href="#" class="btn btn-secondary btn-sm">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#PT-7831</td>
+                                            <td>Robert Brown</td>
+                                            <td>67/M</td>
+                                            <td><span class="status-badge status-warning">Serious</span></td>
+                                            <td>9 Nov 2023</td>
+                                            <td>Dr. Lee</td>
+                                            <td>
+                                                <a href="#" class="btn btn-secondary btn-sm">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#PT-7830</td>
+                                            <td>Jennifer Davis</td>
+                                            <td>29/F</td>
+                                            <td><span class="status-badge status-success">Stable</span></td>
+                                            <td>8 Nov 2023</td>
+                                            <td>Dr. Garcia</td>
+                                            <td>
+                                                <a href="#" class="btn btn-secondary btn-sm">View</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Upcoming Appointments -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Today's Appointments</h2>
+                                <div class="card-actions">
+                                    <a href="#" class="btn btn-secondary btn-sm">Full Schedule</a>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Patient</th>
+                                            <th>Type</th>
+                                            <th>Doctor</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>09:00 AM</td>
+                                            <td>James Wilson</td>
+                                            <td>Follow-up</td>
+                                            <td>Dr. Miller</td>
+                                            <td><span class="status-badge status-success">Confirmed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>10:30 AM</td>
+                                            <td>Maria Garcia</td>
+                                            <td>Consultation</td>
+                                            <td>Dr. Patel</td>
+                                            <td><span class="status-badge status-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>11:45 AM</td>
+                                            <td>David Kim</td>
+                                            <td>Procedure</td>
+                                            <td>Dr. Rodriguez</td>
+                                            <td><span class="status-badge status-success">Confirmed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>02:15 PM</td>
+                                            <td>Lisa Thompson</td>
+                                            <td>Follow-up</td>
+                                            <td>Dr. Lee</td>
+                                            <td><span class="status-badge status-success">Confirmed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>04:00 PM</td>
+                                            <td>Thomas Reed</td>
+                                            <td>Consultation</td>
+                                            <td>Dr. Garcia</td>
+                                            <td><span class="status-badge status-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="dashboard-column">
+                        <!-- Alerts & Notifications -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Clinical Alerts</h2>
+                                <div class="card-actions">
+                                    <a href="#" class="btn btn-secondary btn-sm">View All</a>
+                                </div>
+                            </div>
+                            <ul class="alert-list">
+                                <li class="alert-item">
+                                    <div class="alert-icon danger">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Critical Vitals Alert</div>
+                                        <div class="alert-desc">Patient #PT-7834 has elevated heart rate (125 bpm)</div>
+                                    </div>
+                                    <div class="alert-time">30 min ago</div>
+                                </li>
+                                <li class="alert-item">
+                                    <div class="alert-icon warning">
+                                        <i class="fas fa-pills"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Drug Interaction Warning</div>
+                                        <div class="alert-desc">Potential interaction between Warfarin and Ibuprofen</div>
+                                    </div>
+                                    <div class="alert-time">2 hours ago</div>
+                                </li>
+                                <li class="alert-item">
+                                    <div class="alert-icon warning">
+                                        <i class="fas fa-allergies"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Allergy Alert</div>
+                                        <div class="alert-desc">Patient #PT-7831 has penicillin allergy</div>
+                                    </div>
+                                    <div class="alert-time">3 hours ago</div>
+                                </li>
+                                <li class="alert-item">
+                                    <div class="alert-icon warning">
+                                        <i class="fas fa-vial"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Lab Results Ready</div>
+                                        <div class="alert-desc">Blood test results available for 5 patients</div>
+                                    </div>
+                                    <div class="alert-time">5 hours ago</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Quick Actions</h2>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-user-plus"></i> New Patient
+                                </a>
+                                <a href="#" class="btn btn-secondary">
+                                    <i class="fas fa-calendar-plus"></i> New Appointment
+                                </a>
+                                <a href="#" class="btn btn-success">
+                                    <i class="fas fa-file-medical"></i> Clinical Note
+                                </a>
+                                <a href="#" class="btn btn-secondary">
+                                    <i class="fas fa-prescription"></i> Prescription
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Bed Occupancy -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Bed Occupancy</h2>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>ICU</span>
+                                    <span>18/20 (90%)</span>
+                                </div>
+                                <div style="height: 10px; background-color: #e2e8f0; border-radius: 5px; overflow: hidden;">
+                                    <div style="height: 100%; width: 90%; background-color: var(--accent);"></div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; margin: 15px 0 10px;">
+                                    <span>General Ward</span>
+                                    <span>45/60 (75%)</span>
+                                </div>
+                                <div style="height: 10px; background-color: #e2e8f0; border-radius: 5px; overflow: hidden;">
+                                    <div style="height: 100%; width: 75%; background-color: var(--warning);"></div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; margin: 15px 0 10px;">
+                                    <span>Pediatrics</span>
+                                    <span>12/20 (60%)</span>
+                                </div>
+                                <div style="height: 10px; background-color: #e2e8f0; border-radius: 5px; overflow: hidden;">
+                                    <div style="height: 100%; width: 60%; background-color: var(--secondary);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Sample data for demonstration
+        const patientData = {
+            totalPatients: 1842,
+            admittedPatients: 127,
+            criticalPatients: 18,
+            pendingLabs: 34
+        };
+
+        // Update stats with animation
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Animate stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const statValues = document.querySelectorAll('.stat-value');
+            animateValue(statValues[0], 0, patientData.totalPatients, 1000);
+            animateValue(statValues[1], 0, patientData.admittedPatients, 1000);
+            animateValue(statValues[2], 0, patientData.criticalPatients, 

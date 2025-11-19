@@ -1,4 +1,4 @@
 [[redirects]]
   from = "/more"
-  to = "/more.html"
+  to = "more/more.html"
   status = 200

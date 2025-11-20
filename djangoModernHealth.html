@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Healthcare | How Django Powers Modern Healthcare Applications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #092e20;
+            --primary-light: #0c4a30;
+            --secondary: #047857;
+            --accent: #dc2626;
+            --warning: #d97706;
+            --info: #0ea5e9;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --code-bg: #1a1a1a;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(9, 46, 32, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #065f46;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-highlight {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-highlight:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .feature-highlight h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .feature-highlight p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Why Django Section */
+        .why-django {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .challenge-card {
+            background-color: #f8fafc;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .challenge-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .challenge-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .challenge-card p {
+            color: var(--gray);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .solution-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .solution-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .solution-card p {
+            color: var(--gray);
+        }
+
+        /* Django Features */
+        .django-features {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .features-tabs {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-nav {
+            display: flex;
+            background-color: var(--primary);
+            overflow-x: auto;
+        }
+
+        .tab-link {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab-link:hover, .tab-link.active {
+            color: var(--white);
+            border-bottom-color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-content {
+            padding: 40px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .feature-detail h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-detail p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .code-example {
+            background-color: var(--code-bg);
+            color: #f8f8f2;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-keyword {
+            color: #f92672;
+        }
+
+        .code-class {
+            color: #a6e22e;
+        }
+
+        .code-string {
+            color: #e6db74;
+        }
+
+        .code-comment {
+            color: #75715e;
+        }
+
+        /* Healthcare Modules */
+        .healthcare-modules {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .module-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .module-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .module-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .module-content {
+            padding: 25px;
+        }
+
+        .module-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .module-features li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .module-features li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Case Studies */
+        .case-studies {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .case-study-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .case-study-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .case-study-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(9, 46, 32, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .case-study-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .case-study-content h4 {
+            margin: 15px 0 10px;
+            color: var(--dark);
+        }
+
+        .case-study-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        /* Resources */
+        .resources {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #1e4535;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #1e4535;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--white);
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                padding: 20px 0;
+                gap: 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tab-nav {
+                flex-direction: column;
+            }
+            
+            .tab-link {
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+            
+            .tab-link.active {
+                border-left-color: var(--secondary);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fab fa-python"></i>
+                    Django<span>Healthcare</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#why-django">Why Django</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#modules">Modules</a></li>
+                    <li><a href="#case-studies">Case Studies</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>How Django Powers Secure, Scalable Healthcare Applications</h1>
+            <p>Discover how Django's robust framework enables the development of compliant, high-performance healthcare systems that meet modern medical demands.</p>
+            <div class="cta-buttons">
+                <a href="#features" class="btn btn-primary">Explore Features</a>
+                <a href="#case-studies" class="btn btn-secondary">See Case Studies</a>
+            </div>
+            <div class="hero-features">
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security & Compliance</h3>
+                    <p>Built-in security features that support HIPAA and GDPR requirements</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Rapid Development</h3>
+                    <p>Quickly build and deploy healthcare applications with Django's batteries-included approach</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Scalable Architecture</h3>
+                    <p>Handle large volumes of patient data and high user concurrency</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Integration Capabilities</h3>
+                    <p>Seamlessly connect with existing healthcare systems and third-party services</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Django Section -->
+    <section class="why-django" id="why-django">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Django for Healthcare Applications?</h2>
+                <p>Addressing the unique challenges of healthcare technology with Django's powerful features</p>
+            </div>
+            
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Security & Data Privacy</h3>
+                    <p>Healthcare applications handle sensitive patient data requiring robust security measures and compliance with regulations like HIPAA and GDPR.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Complex Data Modeling</h3>
+                    <p>Medical systems require sophisticated data structures for patient records, lab results, appointments, and billing information.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>High Availability</h3>
+                    <p>Healthcare systems must be reliable and available 24/7, capable of handling peak loads during emergencies.</p>
+                </div>
+            </div>
+
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Built-in Security</h3>
+                    <p>Django provides CSRF protection, SQL injection prevention, XSS protection, and secure password handling out of the box.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Powerful ORM</h3>
+                    <p>Django's Object-Relational Mapping makes complex medical data modeling intuitive and maintainable.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Scalability</h3>
+                    <p>Django's architecture supports horizontal scaling, caching, and background tasks for high-performance applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Django Features -->
+    <section class="django-features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Core Django Features for Healthcare</h2>
+                <p>Key Django capabilities that make it ideal for healthcare application development</p>
+            </div>
+            
+            <div class="features-tabs">
+                <div class="tab-nav">
+                    <a href="#security" class="tab-link active">Security</a>
+                    <a href="#data-modeling" class="tab-link">Data Modeling</a>
+                    <a href="#admin" class="tab-link">Admin Dashboard</a>
+                    <a href="#apis" class="tab-link">REST APIs</a>
+                    <a href="#scalability" class="tab-link">Scalability</a>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="security" class="tab-pane active">
+                        <div class="feature-detail">
+                            <h3>Security Features for Healthcare Compliance</h3>
+                            <p>Django provides comprehensive security features that are essential for healthcare applications handling sensitive patient data.</p>
+                            
+                            <div class="code-example">
+                                <pre><code><span class="code-comment"># Example: Secure patient model with Django</span>
+<span class="code-keyword">from</span> django.db <span class="code-keyword">import</span> models
+<span class="code-keyword">from</span> django.contrib.auth.models <span class="code-keyword">import</span> User
+
+<span class="code-keyword">class</span> <span class="code-class">Patient</span>(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ssn = models.CharField(max_length=11, unique=True)
+    date_of_birth = models.DateField()
+    emergency_contact = models.CharField(max_length=100)
+    
+    <span class="code-keyword">class</span> <span class="code-class">Meta</span>:
+        permissions = [
+            (<span class="code-string">"view_patient_records"</span>, <span class="code-string">"Can view patient medical records"</span>),
+            (<span class="code-string">"edit_patient_records"</span>, <span class="code-string">"Can edit patient medical records"</span>),
+        ]</code></pre>
+                            </div>
+                            
+                            <ul class="module-features">
+                                <li>Built-in protection against CSRF, XSS, and SQL injection</li>
+                                <li>Secure password hashing and authentication system</li>
+                                <li>Role-based access control for different healthcare staff</li>
+                                <li>Audit logging for compliance requirements</li>
+                                <li>Data encryption support for sensitive fields</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="data-modeling" class="tab-pane">
+                        <div class="feature-detail">
+                            <h3>Advanced Data Modeling with Django ORM</h3>
+                            <p>Django's powerful ORM simplifies complex healthcare data relationships and queries.</p>
+                            
+                            <div class="code-example">
+                                <pre><code><span class="code-comment"># Complex medical data models</span>
+<span class="code-keyword">class</span> <span class="code-class">MedicalRecord</span>(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    diagnosis = models.TextField()
+    treatment_plan = models.TextField()
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+<span class="code-keyword">class</span> <span class="code-class">Prescription</span>(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    medication = models.CharField(max_length=200)
+    dosage = models.CharField(max_length=100)
+    frequency = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="admin" class="tab-pane">
+                        <div class="feature-detail">
+                            <h3>Admin Dashboard for Medical Staff</h3>
+                            <p>Django's automatic admin interface provides immediate value for healthcare providers.</p>
+                            
+                            <div class="code-example">
+                                <pre><code><span class="code-comment"># Custom admin configuration</span>
+<span class="code-keyword">from</span> django.contrib <span class="code-keyword">import</span> admin
+
+<span class="code-keyword">class</span> <span class="code-class">PatientAdmin</span>(admin.ModelAdmin):
+    list_display = [<span class="code-string">'name'</span>, <span class="code-string">'date_of_birth'</span>, <span class="code-string">'primary_doctor'</span>]
+    list_filter = [<span class="code-string">'primary_doctor'</span>, <span class="code-string">'insurance_provider'</span>]
+    search_fields = [<span class="code-string">'name'</span>, <span class="code-string">'ssn'</span>]
+    
+    <span class="code-keyword">def</span> <span class="code-class">get_queryset</span>(self, request):
+        qs = super().get_queryset(request)
+        <span class="code-keyword">if</span> request.user.is_superuser:
+            <span class="code-keyword">return</span> qs
+        <span class="code-keyword">return</span> qs.filter(primary_doctor=request.user)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Healthcare Modules -->
+    <section class="healthcare-modules" id="modules">
+        <div class="container">
+            <div class="section-title">
+                <h2>Healthcare Application Modules</h2>
+                <p>Real-world healthcare systems built with Django</p>
+            </div>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <h3>Electronic Health Records (EHR)</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Comprehensive patient record management system with secure access controls.</p>
+                        <ul class="module-features">
+                            <li>Patient demographics and history</li>
+                            <li>Lab results integration</li>
+                            <li>Medication tracking</li>
+                            <li>PDF report generation</li>
+                            <li>Audit trail for compliance</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">View Implementation</a>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Appointment Booking System</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Efficient scheduling system for patients and healthcare providers.</p>
+                        <ul class="module-features">
+                            <li>Doctor scheduling</li>
+                            <li>Patient portal</li>
+                            <li>Automated reminders</li>
+                            <li>Waitlist management</li>
+                            <li>Telemedicine integration</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">View Implementation</a>
+                    </div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-hospital-user"></i>
+                        </div>
+                        <h3>Hospital Management System</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Complete hospital operations management platform.</p>
+                        <ul class="module-features">
+                            <li>Department management</li>
+                            <li>Bed/ward allocation</li>
+                            <li>Staff management</li>
+                            <li>Inventory tracking</li>
+                            <li>Billing and insurance</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">View Implementation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="case-studies" id="case-studies">
+        <div class="container">
+            <div class="section-title">
+                <h2>Case Studies</h2>
+                <p>Real-world implementations of Django in healthcare</p>
+            </div>
+            
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div class="case-study-title">Regional Medical Center</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Problem</h4>
+                        <p>A 300-bed hospital needed to modernize their legacy patient management system that was slow, insecure, and difficult to maintain.</p>
+                        
+                        <h4>Django Solution</h4>
+                        <p>Built a comprehensive hospital management system with EHR, appointment scheduling, and billing modules using Django and Django REST Framework.</p>
+                        
+                        <h4>Results</h4>
+                        <p>60% reduction in administrative time, improved data security, and better patient satisfaction scores.</p>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fas fa-laptop-medical"></i>
+                        </div>
+                        <div class="case-study-title">Telemedicine Startup</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Problem</h4>
+                        <p>A telehealth company needed to quickly build a secure platform for virtual consultations that could scale to thousands of users.</p>
+                        
+                        <h4>Django Solution</h4>
+                        <p>Developed a telemedicine platform with video consultations, secure messaging, and e-prescription capabilities using Django and WebRTC integration.</p>
+                        
+                        <h4>Results</h4>
+                        <p>Launched in 3 months, served 50,000+ patients in first year, maintained 99.9% uptime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resources</h2>
+                <p>Tools and materials for building healthcare applications with Django</p>
+            </div>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Documentation</h3>
+                    <p>Comprehensive guides for building HIPAA-compliant applications with Django</p>
+                    <a href="#" class="btn btn-primary">View Docs</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Code Samples</h3>
+                    <p>Ready-to-use code examples for common healthcare application patterns</p>
+                    <a href="#" class="btn btn-primary">View Code</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Checklist</h3>
+                    <p>Comprehensive security checklist for healthcare applications</p>
+                    <a href="#" class="btn btn-primary">Download</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Boilerplate</h3>
+                    <p>Starter template for healthcare applications with Django</p>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Django Healthcare</h3>
+                    <p>Building secure,

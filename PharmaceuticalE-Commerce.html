@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCommerce | The Future of Pharmaceutical E-Commerce Platforms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --secondary: #059669;
+            --accent: #dc2626;
+            --warning: #d97706;
+            --info: #0ea5e9;
+            --tech: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #dbeafe 0%, #d1fae5 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(30, 64, 175, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #047857;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-highlight {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-highlight:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .feature-highlight h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .feature-highlight p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Industry Trends */
+        .trends {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .trend-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .trend-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .trend-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .trend-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .trend-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Technology Section */
+        .technology {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tech-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tech-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--tech) 0%, var(--primary) 100%);
+            color: var(--white);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .tech-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .tech-content {
+            padding: 25px;
+        }
+
+        .tech-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .tech-features li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tech-features li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Innovations Section */
+        .innovations {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .innovations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .innovation-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .innovation-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .innovation-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .innovation-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Case Studies */
+        .case-studies {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .case-study-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .case-study-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .case-study-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(30, 64, 175, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .case-study-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .case-study-content h4 {
+            margin: 15px 0 10px;
+            color: var(--dark);
+        }
+
+        .case-study-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        /* Business Models */
+        .business-models {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .model-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .model-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .model-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .model-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Resources */
+        .resources {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: var(--radius) 0 0 var(--radius);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            background-color: var(--dark);
+            color: var(--white);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: #0f172a;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #334155;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--white);
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                padding: 20px 0;
+                gap: 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: var(--radius);
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: var(--radius);
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-prescription-bottle-alt"></i>
+                    Pharma<span>Commerce</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#trends">Industry Trends</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#innovations">Innovations</a></li>
+                    <li><a href="#case-studies">Case Studies</a></li>
+                    <li><a href="#business-models">Business Models</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Reinventing How the World Buys Medicine Online</h1>
+            <p>Discover how digital transformation is reshaping pharmaceutical e-commerce with AI, telemedicine, and smart delivery systems.</p>
+            <div class="cta-buttons">
+                <a href="#trends" class="btn btn-primary">Explore Trends</a>
+                <a href="#resources" class="btn btn-secondary">Read Report</a>
+            </div>
+            <div class="hero-features">
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Driven Personalization</h3>
+                    <p>Smart algorithms for personalized medication recommendations and automated drug interaction alerts</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <h3>Telemedicine Integration</h3>
+                    <p>Seamless connection between virtual consultations and prescription fulfillment</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-drone"></i>
+                    </div>
+                    <h3>Smart Delivery Systems</h3>
+                    <p>Drone delivery and route optimization for faster medication access</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Regulatory Evolution</h3>
+                    <p>Adapting to changing global regulations for online pharmaceutical sales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Trends -->
+    <section class="trends" id="trends">
+        <div class="container">
+            <div class="section-title">
+                <h2>Industry Trends Shaping Pharma E-Commerce</h2>
+                <p>Key developments transforming how consumers access and purchase medications online</p>
+            </div>
+            
+            <div class="trends-grid">
+                <div class="trend-card">
+                    <div class="trend-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Rise of Digital Pharmacies</h3>
+                    <p>Traditional brick-and-mortar pharmacies expanding into digital platforms with full e-commerce capabilities.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="trend-card">
+                    <div class="trend-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Direct-to-Consumer Models</h3>
+                    <p>Pharmaceutical companies establishing direct relationships with end consumers through digital channels.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="trend-card">
+                    <div class="trend-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>On-Demand Medication Delivery</h3>
+                    <p>Same-day and even 2-hour delivery services becoming standard expectations for prescription medications.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology" id="technology">
+        <div class="container">
+            <div class="section-title">
+                <h2>Technology Driving the Future</h2>
+                <p>Advanced technologies powering next-generation pharmaceutical e-commerce platforms</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <div class="tech-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI & Machine Learning</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p>Intelligent systems that personalize medication recommendations and enhance safety.</p>
+                        <ul class="tech-features">
+                            <li>Personalized medication recommendations</li>
+                            <li>Automated drug interaction alerts</li>
+                            <li>Fraud detection and prevention</li>
+                            <li>Predictive inventory management</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Explore AI Solutions</a>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <div class="tech-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3>Blockchain & Traceability</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p>Secure, transparent supply chain tracking to prevent counterfeit drugs.</p>
+                        <ul class="tech-features">
+                            <li>Drug provenance verification</li>
+                            <li>Supply chain transparency</li>
+                            <li>Counterfeit prevention</li>
+                            <li>Secure prescription tracking</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Explore Blockchain</a>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <div class="tech-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h3>IoT & Smart Devices</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p>Connected devices that monitor medication adherence and patient health.</p>
+                        <ul class="tech-features">
+                            <li>Smart pill dispensers</li>
+                            <li>Remote adherence monitoring</li>
+                            <li>Temperature-sensitive packaging</li>
+                            <li>Real-time inventory tracking</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Explore IoT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovations Section -->
+    <section class="innovations" id="innovations">
+        <div class="container">
+            <div class="section-title">
+                <h2>E-Commerce Innovations</h2>
+                <p>Cutting-edge features transforming pharmaceutical online platforms</p>
+            </div>
+            
+            <div class="innovations-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h3>Micro-Fulfillment Centers</h3>
+                    <p>Localized distribution hubs enabling faster medication delivery in urban areas.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Same-Day Delivery</h3>
+                    <p>Advanced logistics networks enabling 2-hour prescription delivery in major cities.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3>AR Patient Education</h3>
+                    <p>Augmented reality tools for medication instructions and health education.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="innovation-card">
+                    <div class="innovation-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>Cold-Chain Monitoring</h3>
+                    <p>IoT sensors ensuring temperature-sensitive medications maintain integrity during transit.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="case-studies" id="case-studies">
+        <div class="container">
+            <div class="section-title">
+                <h2>Case Studies</h2>
+                <p>Real-world implementations transforming pharmaceutical e-commerce</p>
+            </div>
+            
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fab fa-amazon"></i>
+                        </div>
+                        <div class="case-study-title">Amazon Pharmacy</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Challenge</h4>
+                        <p>Entering the highly regulated pharmaceutical market with a consumer-first approach while navigating complex healthcare regulations.</p>
+                        
+                        <h4>Innovation</h4>
+                        <p>Integrated pharmacy services with Amazon's existing e-commerce platform, leveraging Prime membership for discounts and fast delivery.</p>
+                        
+                        <h4>Results</h4>
+                        <p>Rapid market penetration with transparent pricing and seamless user experience, challenging traditional pharmacy models.</p>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <div class="case-study-title">Capsule</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Challenge</h4>
+                        <p>Simplifying the prescription fulfillment process for urban consumers frustrated with traditional pharmacy wait times.</p>
+                        
+                        <h4>Innovation</h4>
+                        <p>Same-day prescription delivery with a mobile-first approach and free delivery, eliminating pharmacy visits.</p>
+                        
+                        <h4>Results</h4>
+                        <p>Expanded to multiple major cities with high customer satisfaction scores and rapid growth in prescription volume.</p>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fas fa-tablets"></i>
+                        </div>
+                        <div class="case-study-title">1mg (Tata Digital)</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Challenge</h4>
+                        <p>Providing affordable medication access and healthcare information in price-sensitive emerging markets.</p>
+                        
+                        <h4>Innovation</h4>
+                        <p>Comprehensive platform combining medicine information, price comparison, e-pharmacy, and diagnostic services.</p>
+                        
+                        <h4>Results</h4>
+                        <p>Became one of India's largest digital healthcare platforms with millions of users and strong brand recognition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Models -->
+    <section class="business-models" id="business-models">
+        <div class="container">
+            <div class="section-title">
+                <h2>Business Models & Market Strategies</h2>
+                <p>Evolving commercial approaches in pharmaceutical e-commerce</p>
+            </div>
+            
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-icon">
+                        <i class="fas fa-user-patient"></i>
+                    </div>
+                    <h3>Direct-to-Patient Supply Chain</h3>
+                    <p>Manufacturers establishing direct distribution channels to consumers, bypassing traditional intermediaries.</p>
+                    <a href="#" class="btn btn-secondary">Explore Model</a>
+                </div>
+                <div class="model-card">
+                    <div class="model-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Telemedicine Integration</h3>
+                    <p>Combining virtual consultations with seamless prescription fulfillment in a single platform experience.</p>
+                    <a href="#" class="btn btn-secondary">Explore Model</a>
+                </div>
+                <div class="model-card">
+                    <div class="model-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Insurance-Integrated E-Commerce</h3>
+                    <p>Real-time insurance verification and copay calculations integrated into the purchase flow.</p>
+                    <a href="#" class="btn btn-secondary">Explore Model</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resources</h2>
+                <p>Research and educational materials on pharmaceutical e-commerce</p>
+            </div>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Market Reports</h3>
+                    <p>Comprehensive analysis of global pharmaceutical e-commerce trends and forecasts</p>
+                    <a href="#" class="btn btn-primary">Download</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Infographics</h3>
+                    <p>Visual summaries of key statistics and trends in digital pharmacy adoption</p>
+                    <a href="#" class="btn btn-primary">View</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Regulatory Guides</h3>
+                    <p>Latest regulations and compliance requirements for online pharmaceutical sales</p>
+                    <a href="#" class="btn btn-primary">Download</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Future Report</h3>
+                    <p>"The Future of Pharma E-Commerce" - comprehensive industry analysis</p>
+                    <a href="#" class="btn btn-primary">Get Report</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated on Pharma E-Commerce</h2>
+            <p>Get the latest insights on digital pharmacy trends, regulations, and innovations</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PharmaCommerce</h3>
+                    <p>Exploring the future of pharmaceutical e-commerce platforms and digital health innovation.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#trends">Industry Trends</a></li>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#innovations">Innovations</a></li>
+                        <li><a href="#case-studies">Case Studies</a></li>
+                        <li><a href="#business-models">Business Models</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Market Reports</a></li>
+                        <li><a href="#">Regulatory Guides</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Industry News</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+                <div

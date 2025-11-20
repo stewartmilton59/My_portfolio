@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthDataSecure | Best Practices for Secure Healthcare Data Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --secondary: #059669;
+            --accent: #dc2626;
+            --warning: #d97706;
+            --info: #0ea5e9;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #dbeafe 0%, #d1fae5 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(30, 64, 175, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #047857;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Challenges Section */
+        .challenges {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .challenge-card {
+            background-color: #f8fafc;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .challenge-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .challenge-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .challenge-card p {
+            color: var(--gray);
+        }
+
+        /* Best Practices */
+        .best-practices {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .practice-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .practice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .practice-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+        }
+
+        .practice-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .practice-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .practice-content {
+            padding: 25px;
+        }
+
+        .practice-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .practice-features li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .practice-features li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Compliance Section */
+        .compliance {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .compliance-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .compliance-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .compliance-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .compliance-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .compliance-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Tools Section */
+        .tools {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* Case Studies */
+        .case-studies {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .case-study-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .case-study-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .case-study-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(30, 64, 175, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .case-study-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .case-study-content h4 {
+            margin: 15px 0 10px;
+            color: var(--dark);
+        }
+
+        .case-study-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        /* Resources */
+        .resources {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: var(--radius) 0 0 var(--radius);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            background-color: var(--dark);
+            color: var(--white);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: #0f172a;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #334155;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--white);
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                padding: 20px 0;
+                gap: 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: var(--radius);
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: var(--radius);
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    HealthData<span>Secure</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#best-practices">Best Practices</a></li>
+                    <li><a href="#compliance">Compliance</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#case-studies">Case Studies</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Protecting Patient Data in a Digital Healthcare World</h1>
+            <p>Your comprehensive guide to securing healthcare information, ensuring regulatory compliance, and preventing data breaches in medical environments.</p>
+            <div class="cta-buttons">
+                <a href="#best-practices" class="btn btn-primary">Explore Best Practices</a>
+                <a href="#resources" class="btn btn-secondary">Download Resources</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Healthcare Organizations Experienced a Data Breach</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$10.1M</div>
+                    <div class="stat-label">Average Healthcare Breach Cost</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Increase in Healthcare Cyberattacks Since 2020</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="challenges">
+        <div class="container">
+            <div class="section-title">
+                <h2>Healthcare Data Security Challenges</h2>
+                <p>Understanding the unique security challenges in healthcare environments</p>
+            </div>
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <h3>Patient Privacy</h3>
+                    <p>Protecting sensitive patient information while maintaining accessibility for healthcare providers.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Navigating complex regulations like HIPAA, GDPR, and HITECH with evolving requirements.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Legacy Systems</h3>
+                    <p>Securing outdated systems and medical devices not designed with modern security in mind.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="best-practices" id="best-practices">
+        <div class="container">
+            <div class="section-title">
+                <h2>Essential Security Best Practices</h2>
+                <p>Proven strategies to protect healthcare data and ensure compliance</p>
+            </div>
+            <div class="practices-grid">
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Data Encryption</h3>
+                        <p>Protecting data at rest and in transit</p>
+                    </div>
+                    <div class="practice-content">
+                        <p>Implement strong encryption for all sensitive healthcare data, both in storage and during transmission.</p>
+                        <ul class="practice-features">
+                            <li>AES-256 encryption for data at rest</li>
+                            <li>TLS 1.3 for data in transit</li>
+                            <li>Encrypted backups and archives</li>
+                            <li>Proper key management procedures</li>
+                        </ul>
+                        <a href="#" class="btn btn-success">Learn More</a>
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>Access Control</h3>
+                        <p>Role-based access and authentication</p>
+                    </div>
+                    <div class="practice-content">
+                        <p>Implement strict access controls based on the principle of least privilege and role-based permissions.</p>
+                        <ul class="practice-features">
+                            <li>Multi-factor authentication</li>
+                            <li>Role-based access control (RBAC)</li>
+                            <li>Regular access reviews</li>
+                            <li>Privileged access management</li>
+                        </ul>
+                        <a href="#" class="btn btn-success">Learn More</a>
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Cloud Security</h3>
+                        <p>Secure cloud infrastructure and services</p>
+                    </div>
+                    <div class="practice-content">
+                        <p>Ensure proper security configurations and controls for cloud-based healthcare applications and storage.</p>
+                        <ul class="practice-features">
+                            <li>Shared responsibility model understanding</li>
+                            <li>Cloud security posture management</li>
+                            <li>Data residency and sovereignty compliance</li>
+                            <li>Secure API configurations</li>
+                        </ul>
+                        <a href="#" class="btn btn-success">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance Section -->
+    <section class="compliance" id="compliance">
+        <div class="container">
+            <div class="section-title">
+                <h2>Compliance & Legal Requirements</h2>
+                <p>Understanding the regulatory landscape for healthcare data protection</p>
+            </div>
+            <div class="compliance-grid">
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <h3>HIPAA</h3>
+                    <p>Health Insurance Portability and Accountability Act</p>
+                    <a href="#" class="btn btn-primary">Compliance Guide</a>
+                </div>
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3>GDPR</h3>
+                    <p>General Data Protection Regulation</p>
+                    <a href="#" class="btn btn-primary">Compliance Guide</a>
+                </div>
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <h3>HITECH</h3>
+                    <p>Health Information Technology for Economic and Clinical Health Act</p>
+                    <a href="#" class="btn btn-primary">Compliance Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Security Tools & Technologies</h2>
+                <p>Essential tools for implementing healthcare data security</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Encryption Tools</h3>
+                    <p>Software and hardware for data encryption</p>
+                    <a href="#" class="btn btn-secondary">Explore</a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>IAM Solutions</h3>
+                    <p>Identity and access management platforms</p>
+                    <a href="#" class="btn btn-secondary">Explore</a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3>Network Security</h3>
+                    <p>Firewalls, intrusion detection, and monitoring</p>
+                    <a href="#" class="btn btn-secondary">Explore</a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Backup Solutions</h3>
+                    <p>Secure data backup and recovery systems</p>
+                    <a href="#" class="btn btn-secondary">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="case-studies" id="case-studies">
+        <div class="container">
+            <div class="section-title">
+                <h2>Data Breach Case Studies</h2>
+                <p>Real-world examples of healthcare data security incidents</p>
+            </div>
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div class="case-study-title">Major Hospital Network Breach</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Background</h4>
+                        <p>A 500-bed hospital system experienced a ransomware attack that encrypted patient records and disrupted clinical operations for two weeks.</p>
+                        
+                        <h4>Security Gaps</h4>
+                        <p>Outdated software, lack of network segmentation, and insufficient employee security training.</p>
+                        
+                        <h4>Prevention Strategies</h4>
+                        <p>Regular security updates, network segmentation, comprehensive backup strategy, and ongoing staff training.</p>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="fas fa-clinic-medical"></i>
+                        </div>
+                        <div class="case-study-title">Clinic Phishing Attack</div>
+                    </div>
+                    <div class="case-study-content">
+                        <h4>Background</h4>
+                        <p>A multi-specialty clinic lost access to patient records after employees fell for a sophisticated phishing campaign.</p>
+                        
+                        <h4>Security Gaps</h4>
+                        <p>Lack of multi-factor authentication, insufficient email filtering, and no incident response plan.</p>
+                        
+                        <h4>Prevention Strategies</h4>
+                        <p>Implement MFA, advanced email security, regular phishing simulations, and documented incident response procedures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Security Resources</h2>
+                <p>Downloadable guides, templates, and tools for healthcare security</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-list-check"></i>
+                    </div>
+                    <h3>HIPAA Checklist</h3>
+                    <p>Comprehensive checklist for HIPAA compliance assessment</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3>Policy Templates</h3>
+                    <p>Ready-to-use security policy templates for healthcare organizations</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h3>Risk Assessment Tool</h3>
+                    <p>Framework for conducting security risk assessments in healthcare</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Training Materials</h3>
+                    <p>Staff training resources for healthcare data security awareness</p>
+                    <a href="#" class="btn btn-success">Download</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Informed on Healthcare Security</h2>
+            <p>Get the latest updates on regulations, threats, and best practices delivered to your inbox</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>HealthDataSecure</h3>
+                    <p>Your trusted resource for healthcare data security best practices, compliance guidance, and implementation tools.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#compliance">Compliance</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#case-studies">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">HIPAA Guide</a></li>
+                        <li><a href="#">Security Checklists</a></li>
+                        <li><a href="#">Policy Templates</a></li>
+                        <li><a href="#">Training Materials</a></li>
+                        <li><a href="#">Risk Assessment Tool</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Consulting Services</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HealthDataSecure. All rights reserved. This site provides educational content and is not a substitute for professional legal or security advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Sample data for demonstration
+        const securityData = {
+            organizationsBreached: 89,
+            averageBreachCost: 10.1,
+            attackIncrease: 45
+        };
+
+        // Update stats with animation
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Animate stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const statValues = document.querySelectorAll('.stat-number');
+            animateValue(statValues[0], 0, securityData.organizationsBreached, 1000);
+            animateValue(statValues[1], 0, securityData.averageBreachCost, 1000);
+            animateValue(statValues[2], 0, securityData.attackIncrease, 1000);
+        });
+    </script>
+</body>
+</html>
